@@ -11,7 +11,7 @@
 
         {{ if .IsTranslated }} | {{ i18n "postAvailable" }}
           {{ range .Translations }}
-              <a href="{{ .Permalink }}"><span class="flag fi fi-{{ index $.Site.Data.langFlags (.Lang) }}"></span></a>
+              <span class="flag fi fi-{{ index $.Site.Data.langFlags (.Lang) }}"></span>
           {{ end}}
         {{ end }}
       </p>
@@ -19,7 +19,7 @@
 
     <article>
       <h1 class="post-title">
-        <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
+        {{ .Title | markdownify }}
       </h1>
 
       {{ with .Params.Description }}

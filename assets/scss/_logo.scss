@@ -5,6 +5,8 @@
   font-weight: bold;
   font-display: auto;
   font-family: monospace, monospace;
+  white-space: nowrap;
+  font-display: swap;
 
   img {
     height: 44px;
@@ -16,17 +18,123 @@
 
   &__text {
     font-size: 1.125rem;
+    padding-right:2px;
+  }
+
+  &__terminal-user {
+    color:$green-terminal;
+    text-decoration: inherit;
+  }
+  // &__terminal-user:hover{
+  //   background-color: $dark-background-secondary;
+  // }
+  &__terminal-path-box{
+    display: inline-flex;
+  }
+  &__terminal-path {
+    color:$blue_terminal;
+    max-width: 250px;
+    text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: hidden;
+
+  }
+  &__terminal-path-folder{
+    text-decoration: inherit;
+  }
+  // &__terminal-path-folder:hover{
+  //   background-color: $dark-background-secondary;
+  // }
+  &__terminal-input {
+    text-decoration: none;
+    font-size: 1.125rem;
+    font-weight: bold;
+    font-family: monospace, monospace;
+    border:none;
+    outline: none;
+    color: transparent;
+    text-shadow: 0 0 0 $dark-color;
+    display: inline-flex;
+    width: 100%;
+    margin-left: -10px;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: $dark-background-header;
+    }
+  
+    @media (prefers-color-scheme: light) {
+      background-color: $light-background-header;
+    }
+
+    [data-theme=dark] & {
+      background-color: $dark-background-header;
+    }
+  
+    [data-theme=light] & {
+      background-color: $light-background-header;
+    }
+  }
+
+  &__terminal-dollar {
+    padding-left: 2px;
+    padding-right: 2px;
+    @media (prefers-color-scheme: dark) {
+      color: $dark-color;
+    }
+    
+    @media (prefers-color-scheme: light) {
+      color: $light-color;
+    }
+
+    [data-theme=dark] & {
+      color: $dark-color;
+    }
+  
+    [data-theme=light] & {
+      color: $light-color;
+    }
+  }
+
+  @media #{$media-size-phone} {
+    // &__terminal-input{
+    //   display: none;
+    // }
+    &__terminal-path {
+      max-width:125px;
+    }
   }
 
   &__cursor {
-    display: inline-block;
+    // display: inline-block;
+    //margin-top: 8px;
+    //margin-bottom: 4px;
+    padding-left: 5px;
+    padding-right: 5px;
     width: 10px;
-    height: 1rem;
-    background: #fe5186;
-    margin-left: 5px;
-    border-radius: 1px;
+    height: 18px;
+    background: $dark-color;
     animation: cursor 1s infinite;
+    position: relative;
+    // top: 0;
+    left: 2px;
+    // right: 0;
+    // bottom: 0;
+    z-index: 9999; /* Specify a stack order in case you're using a different order for other elements */
+    @media (prefers-color-scheme: dark) {
+      color: $dark-color;
+    }
+    
+    @media (prefers-color-scheme: light) {
+      color: $light-color;
+    }
+
+    [data-theme=dark] & {
+      color: $dark-color;
+    }
+  
+    [data-theme=light] & {
+      color: $light-color;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -34,7 +142,6 @@
         animation: none;
     }
   }
-
 }
 
 @keyframes cursor {
