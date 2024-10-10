@@ -116,6 +116,14 @@ a:hover {
   @media (prefers-color-scheme: light) {
     background-color: $light-background-secondary;
   }
+
+  [data-theme=dark] & {
+    background-color: $dark-background-secondary;
+  }
+
+  [data-theme=light] & {
+    background-color: $light-background-secondary;
+  }
 }
 
 a.social {
