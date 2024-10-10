@@ -1,13 +1,31 @@
 /* Must be loaded before everything else */
 @import "normalize";
-@import "prism";
 @import "flag-icons";
+
+/* Syntax highlighting */
+@media (prefers-color-scheme: dark) {
+    @import "prism-one-dark";
+  }
+  
+  @media (prefers-color-scheme: light) {
+    @import "prism-one-light";
+  }
+  
+  [data-theme="dark"] {
+    @import "prism-one-dark";
+  }
+  
+  [data-theme="light"] {
+    @import "prism-one-light";
+  }  
 
 /* Main stuff */
 @import "variables";
 @import "mixins";
 @import "fonts";
 @import "buttons";
+
+
 /* Modules */
 @import "header";
 @import "logo";
