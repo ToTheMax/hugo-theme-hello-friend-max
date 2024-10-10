@@ -30,12 +30,13 @@
 
  code[class*="language-"],
  pre[class*="language-"] {
-     background: hsl(230, 1%, 98%);
-     color: hsl(230, 8%, 24%);
-     font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
-     direction: ltr;
-     text-align: left;
-     white-space: pre;
+    font-size: 14px;
+    background: $light-background-header;
+    color: $dark-background-secondary;
+    font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    direction: ltr;
+    text-align: left;
+    white-space: pre;
      word-spacing: normal;
      word-break: normal;
      line-height: 1.5;
@@ -251,29 +252,70 @@
  
  /* Toolbar plugin overrides */
  /* Space out all buttons and move them away from the right edge of the code block */
- div.code-toolbar > .toolbar.toolbar > .toolbar-item {
-     margin-right: 0.4em;
- }
- 
- /* Styling the buttons */
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > button,
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > a,
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > span {
-     background: hsl(230, 1%, 90%);
-     color: hsl(230, 6%, 44%);
-     padding: 0.1em 0.4em;
-     border-radius: 0.3em;
- }
- 
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:hover,
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:focus,
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:hover,
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:focus,
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:hover,
- div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus {
-     background: hsl(230, 1%, 78%); /* custom: darken(--syntax-bg, 20%) */
-     color: hsl(230, 8%, 24%);
- }
+div.code-toolbar {
+	position: relative;
+}
+
+div.code-toolbar > .toolbar {
+	position: absolute;
+	top: .3em;
+	right: .2em;
+	transition: opacity 0.3s ease-in-out;
+	opacity: 0;
+}
+
+div.code-toolbar:hover > .toolbar {
+	opacity: 1;
+}
+
+/* Separate line b/c rules are thrown out if selector is invalid.
+   IE11 and old Edge versions don't support :focus-within. */
+div.code-toolbar:focus-within > .toolbar {
+	opacity: 1;
+}
+
+div.code-toolbar > .toolbar .toolbar-item {
+	display: inline-block;
+}
+
+div.code-toolbar > .toolbar a {
+	cursor: pointer;
+}
+
+div.code-toolbar > .toolbar button {
+	background: none;
+	border: 0;
+	color: inherit;
+	font: inherit;
+	line-height: normal;
+	overflow: visible;
+	padding: 0;
+	-webkit-user-select: none; /* for button */
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button,
+div.code-toolbar > .toolbar span {
+	color: #bbb;
+	font-size: .8em;
+	padding: 0 .5em;
+	background: #f5f2f0;
+	background: rgba(224, 224, 224, 0.2);
+	box-shadow: 0 2px 0 0 rgba(0,0,0,0.2);
+	border-radius: .5em;
+}
+
+div.code-toolbar > .toolbar a:hover,
+div.code-toolbar > .toolbar a:focus,
+div.code-toolbar > .toolbar button:hover,
+div.code-toolbar > .toolbar button:focus,
+div.code-toolbar > .toolbar span:hover,
+div.code-toolbar > .toolbar span:focus {
+	color: inherit;
+	text-decoration: none;
+}
  
  /* Line Highlight plugin overrides */
  /* The highlighted line itself */
