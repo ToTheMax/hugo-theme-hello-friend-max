@@ -1,35 +1,60 @@
 {{ define "main" }}
-    {{ $paginator := .Paginate .Data.Pages }}
-    
-    <main class="posts">
-        <h1>{{ .Title }}</h1>
 
-        {{ if .Content }}
-            <div class="content">{{ .Content }}</div>
+{{ $paginator := "" }}
+{{ if eq .Page.RelPermalink "/posts/" }}
+    {{ $filtered_pages := slice }}
+    {{ range .Data.Pages }}
+        {{ if and (not (in .Params.tags "ctf")) }}
+            {{ $filtered_pages = $filtered_pages | append . }}
         {{ end }}
+    {{ end }}
+    {{ $paginator = .Paginate $filtered_pages }}
+{{ else }}
+    {{ $paginator = .Paginate .Data.Pages }}
+{{ end }}
 
-        {{ range $paginator.Pages.GroupByDate "2006" }}
-            <div class="posts-group">
-                <div class="post-year">{{ .Key }}</div>
+<main class="posts">
+    <h1>{{ .Title }}</h1>
 
-                <ul class="posts-list">
-                    {{ range .Pages }}
-                        <li class="post-item">
-                            <a href="{{.Permalink}}" class="post-item-inner">
-                                <span class="post-title">{{.Title}}</span>
-                                <span class="post-day">
-                                    {{ if .Site.Params.dateformShort }}
-                                        {{ .Date.Format .Site.Params.dateformShort }}
-                                    {{ else }}
-                                        {{ .Date.Format "Jan 2"}}
-                                    {{ end }}
-                                </span>
-                            </a>
-                        </li>
-                    {{ end }}
-                </ul>
-            </div>
-        {{ end }}
+    {{ if .Content }}
+    <div class="content">{{ .Content }}</div>
+    {{ end }}
+
+    {{ range $paginator.Pages.GroupByDate "2006" }}
+    <div class="posts-group">
+        <div class="post-year">{{ .Key }}</div>
+
+        <ul class="posts-list">
+            {{ range .Pages }}
+            <li class="post-item">
+                <a href="{{.Permalink}}" class="post-item-inner">
+                    <span class="post-title">{{.Title}}</span>
+                    <span class="post-day">
+                        {{ if .Site.Params.dateformShort }}
+                        {{ .Date.Format .Site.Params.dateformShort }}
+                        {{ else }}
+                        {{ .Date.Format "Jan 2"}}
+                        {{ end }}
+                    </span>
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
     {{ partial "pagination-list.html" . }}
-    </main>
+
+    {{ if eq .Page.RelPermalink "/posts/" }}
+    <div class="pagination">
+        <div class="pagination__buttons">
+            <span class="button next">
+                <a href="/tags/ctf">
+                    <span class="button__text">CTF Writeups</span>
+                </a>
+            </span>
+        </div>
+    </div>
+    {{ end }}
+
+</main>
 {{ end }}
